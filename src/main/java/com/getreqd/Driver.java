@@ -35,7 +35,7 @@ public class Driver extends JFrame {
 	public final static void initUI() {
 
 		// Define window
-		JFrame window = new JFrame("CACI ISO Utility");
+		final JFrame window = new JFrame("CACI ISO Utility");
 		window.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setLocationRelativeTo(null);
@@ -48,14 +48,14 @@ public class Driver extends JFrame {
 		// Create the input file panel
 		JPanel inputPanel = new JPanel();
 		inputPanel.setBorder(BorderFactory.createTitledBorder("Input"));
-		JTextField inputFileField = new JTextField("", 25);
+		final JTextField inputFileField = new JTextField("", 25);
 		JLabel inputFileLabel = new JLabel("Filename: ");
 		JButton inputBrowseButton = new JButton("Browse...");
 
 		// Create the output directory panel
 		JPanel outputPanel = new JPanel();
 		outputPanel.setBorder(BorderFactory.createTitledBorder("Output"));
-		JTextField outputDirectoryField = new JTextField("", 25);
+		final JTextField outputDirectoryField = new JTextField("", 25);
 		JLabel outputDirectoryLabel = new JLabel("Directory: ");
 		JButton outputBrowseButton = new JButton("Browse...");
 
@@ -64,11 +64,11 @@ public class Driver extends JFrame {
 		JButton buttonCreate = new JButton("Create");
 		JButton buttonRename = new JButton("Split");
 		JButton buttonBuild = new JButton("Build");
-		JButton buttonSettings = new JButton("Settings");
+		JButton buttonHelp = new JButton("Help");
 		JButton buttonExit = new JButton("Exit");
 		
 		// Create slider to make variable splitting sizes
-		JSlider partitionSize = new JSlider(1, 5);
+		final JSlider partitionSize = new JSlider(1, 5);
 		
 		// Remove the border if it's not worth it and the space is better used for ticks
 		partitionSize.setBorder(BorderFactory.createTitledBorder("Partition size (1% to 10%)"));
@@ -215,6 +215,22 @@ public class Driver extends JFrame {
 			}
 
 		});
+		
+		// Help button action listener
+		buttonHelp.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String helpMessage = 
+						"1. In the Input field, choose the file you wish to split/build.\n"
+						+ " --If you want to Create a .iso file, after selecting an Input file, click Create.\n" +
+						"2. In the Output field, choose the destination of the split/built files. \n"
+						+ " --Splitting the file will result in multiple .caci files in the specified directory; building the files will result in a single file in the specified directory\n" + 
+						"3. In the Partition field, choose the partition size for each file if splitting.\n" +
+						"4. Either choose Split or Build if you want to split the files or build already-split files.";
+				JOptionPane.showMessageDialog(null, helpMessage, "Help", JOptionPane.INFORMATION_MESSAGE); 
+			}
+		});
 
 		// Add inputPanel components to inputPanel
 		inputPanel.add(inputFileLabel);
@@ -231,7 +247,7 @@ public class Driver extends JFrame {
 		buttonPanel.add(partitionSize);
 		buttonPanel.add(buttonRename);
 		buttonPanel.add(buttonBuild);
-		buttonPanel.add(buttonSettings);
+		buttonPanel.add(buttonHelp);
 		buttonPanel.add(buttonExit);
 
 		// Create a panel to hold I/O panels and add I/O panels
